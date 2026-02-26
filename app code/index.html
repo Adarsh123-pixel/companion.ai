@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Companion.ai - Your Empathetic AI Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Custom Animations */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes sound-wave {
+            0%, 100% { height: 20px; }
+            50% { height: 60px; }
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .sound-bar {
+            animation: sound-wave 1s ease-in-out infinite;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-gradient {
+            background: radial-gradient(ellipse at top, #1e3a8a 0%, #0f172a 50%, #000000 100%);
+        }
+        
+        .call-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+        }
+        
+        .emotion-happy { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+        .emotion-sad { background: linear-gradient(135deg, #60a5fa, #3b82f6); }
+        .emotion-anxious { background: linear-gradient(135deg, #a78bfa, #8b5cf6); }
+        .emotion-neutral { background: linear-gradient(135deg, #9ca3af, #6b7280); }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        .voice-wave {
+            background: linear-gradient(to top, #6366f1, #8b5cf6);
+            border-radius: 999px;
+            transition: height 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-white overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <i data-lucide="heart" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <span class="font-display font-bold text-xl tracking-tight">Companion.ai</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#features" class="text-sm font-medium text-slate-300 hover:text-white transition">Features</a>
+                    <a href="#technology" class="text-sm font-medium text-slate-300 hover:text-white transition">Technology</a>
+                    <a href="#demo" class="text-sm font-medium text-slate-300 hover:text-white transition">Try Demo</a>
+                </div>
+                <button onclick="scrollToDemo()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-all transform hover:scale-105">
+                    Start Talking
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-600 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm">
+                <span class="flex h-2 w-2 rounded-full bg-green-400 animate-pulse"></span>
+                <span class="text-sm text-slate-300">Available 24/7 for emotional support</span>
+            </div>
+            
+            <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                Never Feel <span class="gradient-text">Lonely</span><br>Again
+            </h1>
+            
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Your empathetic AI companion that listens, understands, and responds just like a trusted friend. Always available through voice or chat.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button onclick="startVoiceCall()" class="group bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 flex items-center space-x-3 shadow-2xl shadow-indigo-500/25">
+                    <i data-lucide="phone-call" class="w-5 h-5 group-hover:animate-pulse"></i>
+                    <span>Start Voice Call</span>
+                </button>
+                <button onclick="switchToChat()" class="glass hover:bg-white/10 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all flex items-center space-x-3 border border-white/20">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    <span>Open Chat</span>
+                </button>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="glass rounded-2xl p-6 text-center">
+                    <div class="w-12 h-12 bg-indigo-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="mic" class="w-6 h-6 text-indigo-400"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">Voice-First</h3>
+                    <p class="text-sm text-slate-400">Natural phone-call experience with interruption support</p>
+                </div>
+                <div class="glass rounded-2xl p-6 text-center">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="brain" class="w-6 h-6 text-purple-400"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">Emotion Aware</h3>
+                    <p class="text-sm text-slate-400">Detects mood through voice tone and adapts responses</p>
+                </div>
+                <div class="glass rounded-2xl p-6 text-center">
+                    <div class="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="shield" class="w-6 h-6 text-pink-400"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">Judgment Free</h3>
+                    <p class="text-sm text-slate-400">Safe space to share without fear of burdening others</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main App Interface -->
+    <section id="demo" class="min-h-screen bg-slate-950 py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="font-display text-4xl font-bold mb-4">Experience Companion.ai</h2>
+                <p class="text-slate-400">Try the interactive demo below. Switch between voice and chat modes.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Sidebar Controls -->
+                <div class="lg:col-span-1 space-y-6">
+                    <!-- Mode Switcher -->
+                    <div class="glass rounded-2xl p-6">
+                        <h3 class="font-semibold mb-4 flex items-center space-x-2">
+                            <i data-lucide="settings" class="w-5 h-5 text-indigo-400"></i>
+                            <span>Settings</span>
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-sm text-slate-400 mb-2 block">Companion Voice</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button onclick="setVoice('female')" id="voice-female" class="voice-btn bg-indigo-600 text-white py-2 px-4 rounded-lg text-sm font-medium transition">Female</button>
+                                    <button onclick="setVoice('male')" id="voice-male" class="voice-btn bg-white/5 text-slate-300 py-2 px-4 rounded-lg text-sm font-medium transition hover:bg-white/10">Male</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-sm text-slate-400 mb-2 block">Interaction Mode</label>
+                                <div class="flex bg-slate-900 rounded-lg p-1">
+                                    <button onclick="switchMode('voice')" id="mode-voice" class="flex-1 py-2 px-4 rounded-md text-sm font-medium bg-indigo-600 text-white transition">Voice</button>
+                                    <button onclick="switchMode('chat')" id="mode-chat" class="flex-1 py-2 px-4 rounded-md text-sm font-medium text-slate-400 hover:text-white transition">Chat</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-sm text-slate-400 mb-2 block">Current Emotion</label>
+                                <div id="emotion-indicator" class="emotion-neutral rounded-lg p-3 text-center font-semibold text-sm transition-all duration-500">
+                                    Neutral
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="glass rounded-2xl p-6">
+                        <h3 class="font-semibold mb-4">Session Stats</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-400">Call Duration</span>
+                                <span id="call-timer" class="font-mono">00:00</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-400">Messages</span>
+                                <span id="message-count">0</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-400">Mood Shifts</span>
+                                <span id="mood-shifts">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Interface -->
+                <div class="lg:col-span-2">
+                    <!-- Voice Interface -->
+                    <div id="voice-interface" class="call-gradient rounded-3xl p-8 min-h-[600px] flex flex-col relative overflow-hidden shadow-2xl">
+                        <!-- Background Effects -->
+                        <div class="absolute inset-0 opacity-30">
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500 rounded-full filter blur-3xl animate-pulse"></div>
+                        </div>
+
+                        <!-- Header -->
+                        <div class="relative z-10 flex justify-between items-center mb-8">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                                <span class="text-sm font-medium text-slate-300">Active Call</span>
+                            </div>
+                            <button onclick="endCall()" class="text-slate-400 hover:text-white transition">
+                                <i data-lucide="x" class="w-6 h-6"></i>
+                            </button>
+                        </div>
+
+                        <!-- Avatar Section -->
+                        <div class="relative z-10 flex-1 flex flex-col items-center justify-center">
+                            <div class="relative mb-8">
+                                <div class="absolute inset-0 bg-indigo-500 rounded-full pulse-ring"></div>
+                                <div class="absolute inset-0 bg-indigo-500 rounded-full pulse-ring animation-delay-1000"></div>
+                                <div id="companion-avatar" class="relative w-32 h-32 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-full flex items-center justify-center shadow-2xl float">
+                                    <i data-lucide="user" class="w-16 h-16 text-white"></i>
+                                </div>
+                            </div>
+
+                            <h3 class="text-2xl font-display font-bold mb-2">Nora</h3>
+                            <p class="text-slate-400 mb-8">Your AI Companion</p>
+
+                            <!-- Voice Visualization -->
+                            <div id="voice-visualizer" class="flex items-end space-x-1 h-16 mb-8 opacity-0 transition-opacity duration-300">
+                                <div class="voice-wave w-2 sound-bar" style="animation-delay: 0s; height: 20px;"></div>
+                                <div class="voice-wave w-2 sound-bar" style="animation-delay: 0.1s; height: 40px;"></div>
+                                <div class="voice-wave w-2 sound-bar" style="animation-delay: 0.2s; height: 30px;"></div>
+                                <div class="voice-wave w-2 sound-bar" style="animation-delay: 0.3s; height: 50px;"></div>
+                                <div class="voice-wave w-2 sound-bar" style="animation-delay: 0.4s; height: 25px;"></div>
+                                <div class="voice-wave w-2 sound-bar" style="animation-delay: 0.5s; height: 45px;"></div>
+                                <div class="voice-wave w-2 sound-bar" style="animation-delay: 0.6s; height: 35px;"></div>
+                                <div class="voice-wave w-2 sound-bar" style="animation-delay: 0.7s; height: 20px;"></div>
+                            </div>
+
+                            <p id="voice-status" class="text-slate-300 text-center max-w-md mb-8">"Hey! I'm here to listen. How are you feeling today?"</p>
+                        </div>
+
+                        <!-- Call Controls -->
+                        <div class="relative z-10 flex justify-center items-center space-x-6">
+                            <button onclick="toggleMute()" id="mute-btn" class="w-14 h-14 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition backdrop-blur-sm border border-white/10">
+                                <i data-lucide="mic" class="w-6 h-6"></i>
+                            </button>
+                            <button onclick="endCall()" class="w-16 h-16 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center transition shadow-lg shadow-red-500/30">
+                                <i data-lucide="phone-off" class="w-7 h-7"></i>
+                            </button>
+                            <button onclick="switchMode('chat')" class="w-14 h-14 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition backdrop-blur-sm border border-white/10">
+                                <i data-lucide="message-square" class="w-6 h-6"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chat Interface (Hidden by default) -->
+                    <div id="chat-interface" class="hidden bg-slate-900 rounded-3xl border border-slate-800 min-h-[600px] flex flex-col shadow-2xl overflow-hidden">
+                        <!-- Chat Header -->
+                        <div class="bg-slate-800/50 border-b border-slate-700 p-4 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
+                                    <i data-lucide="bot" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold">Companion.ai</h3>
+                                    <p class="text-xs text-green-400 flex items-center space-x-1">
+                                        <span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
+                                        <span>Online</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <button onclick="switchMode('voice')" class="p-2 hover:bg-slate-700 rounded-lg transition">
+                                <i data-lucide="phone" class="w-5 h-5 text-slate-400"></i>
+                            </button>
+                        </div>
+
+                        <!-- Chat Messages -->
+                        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 hide-scrollbar bg-slate-900/50">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                                </div>
+                                <div class="bg-slate-800 rounded-2xl rounded-tl-none px-4 py-3 max-w-[80%]">
+                                    <p class="text-sm text-slate-200">Hey! How are you feeling today? I'm here to listen and chat whenever you need. 💙</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Typing Indicator -->
+                        <div id="typing-indicator" class="hidden px-4 py-2">
+                            <div class="flex items-center space-x-2 text-slate-500 text-sm">
+                                <div class="flex space-x-1">
+                                    <div class="w-2 h-2 bg-slate-500 rounded-full typing-dot"></div>
+                                    <div class="w-2 h-2 bg-slate-500 rounded-full typing-dot"></div>
+                                    <div class="w-2 h-2 bg-slate-500 rounded-full typing-dot"></div>
+                                </div>
+                                <span>Companion is typing...</span>
+                            </div>
+                        </div>
+
+                        <!-- Chat Input -->
+                        <div class="p-4 bg-slate-800/50 border-t border-slate-700">
+                            <div class="flex items-center space-x-2 bg-slate-800 rounded-full px-4 py-2 border border-slate-700 focus-within:border-indigo-500 transition">
+                                <button class="text-slate-400 hover:text-indigo-400 transition">
+                                    <i data-lucide="paperclip" class="w-5 h-5"></i>
+                                </button>
+                                <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 bg-transparent border-none outline-none text-white placeholder-slate-500 text-sm" onkeypress="handleChatKeypress(event)">
+                                <button onclick="sendMessage()" class="bg-indigo-600 hover:bg-indigo-700 text-white p-2 rounded-full transition">
+                                    <i data-lucide="send" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-20 bg-slate-950 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold mb-4">Why Choose Companion.ai?</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">Designed specifically to combat the loneliness epidemic with cutting-edge AI technology.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass rounded-2xl p-8 hover:bg-white/10 transition duration-300 group">
+                    <div class="w-14 h-14 bg-indigo-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-lucide="phone-call" class="w-7 h-7 text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Real-Time Voice Calls</h3>
+                    <p class="text-slate-400 leading-relaxed">Natural phone-call experience with seamless interruptions and pause detection. Just like talking to a real friend.</p>
+                </div>
+
+                <div class="glass rounded-2xl p-8 hover:bg-white/10 transition duration-300 group">
+                    <div class="w-14 h-14 bg-purple-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-lucide="activity" class="w-7 h-7 text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Emotion Detection</h3>
+                    <p class="text-slate-400 leading-relaxed">Advanced AI analyzes your voice tone to detect happiness, sadness, anxiety, or neutrality, adapting responses accordingly.</p>
+                </div>
+
+                <div class="glass rounded-2xl p-8 hover:bg-white/10 transition duration-300 group">
+                    <div class="w-14 h-14 bg-pink-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-lucide="clock" class="w-7 h-7 text-pink-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">24/7 Availability</h3>
+                    <p class="text-slate-400 leading-relaxed">Someone to talk to at 2 AM when anxiety strikes. No waiting, no scheduling, no burdening friends or family.</p>
+                </div>
+
+                <div class="glass rounded-2xl p-8 hover:bg-white/10 transition duration-300 group">
+                    <div class="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-lucide="message-square" class="w-7 h-7 text-blue-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Dual Mode System</h3>
+                    <p class="text-slate-400 leading-relaxed">Switch seamlessly between voice calls and text chat based on your comfort and situation.</p>
+                </div>
+
+                <div class="glass rounded-2xl p-8 hover:bg-white/10 transition duration-300 group">
+                    <div class="w-14 h-14 bg-green-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-lucide="users" class="w-7 h-7 text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Personalized Voice</h3>
+                    <p class="text-slate-400 leading-relaxed">Choose between male and female companion voices to match your preference and comfort level.</p>
+                </div>
+
+                <div class="glass rounded-2xl p-8 hover:bg-white/10 transition duration-300 group">
+                    <div class="w-14 h-14 bg-yellow-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                        <i data-lucide="shield-check" class="w-7 h-7 text-yellow-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Safe & Private</h3>
+                    <p class="text-slate-400 leading-relaxed">A judgment-free zone to share your deepest thoughts without fear of criticism or gossip.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section id="technology" class="py-20 bg-slate-900 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold mb-4">Powered by Advanced AI</h2>
+                <p class="text-slate-400">Integration of cutting-edge technologies for seamless, natural conversation.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition duration-300">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl font-bold text-blue-400">1</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Conversational Brain</h3>
+                    <p class="text-sm text-slate-400 mb-3">Google Gemini API</p>
+                    <p class="text-sm text-slate-500">Powers natural conversations and contextual understanding.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 hover:border-purple-500 transition duration-300">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl font-bold text-purple-400">2</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Voice Generation</h3>
+                    <p class="text-sm text-slate-400 mb-3">ElevenLabs API</p>
+                    <p class="text-sm text-slate-500">Creates realistic, human-like speech from text.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 hover:border-pink-500 transition duration-300">
+                    <div class="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl font-bold text-pink-400">3</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Speech Recognition</h3>
+                    <p class="text-sm text-slate-400 mb-3">Whisper AI</p>
+                    <p class="text-sm text-slate-500">Accurately transcribes spoken words into text.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 hover:border-green-500 transition duration-300">
+                    <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl font-bold text-green-400">4</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Emotion Detection</h3>
+                    <p class="text-sm text-slate-400 mb-3">Hume AI</p>
+                    <p class="text-sm text-slate-500">Analyzes voice tone to detect mood and emotional state.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section class="py-20 bg-slate-950 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold mb-4">Who Is This For?</h2>
+                <p class="text-slate-400">Supporting diverse groups facing the loneliness epidemic.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="relative group overflow-hidden rounded-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent z-10"></div>
+                    <div class="h-80 bg-slate-800 flex items-center justify-center">
+                        <i data-lucide="graduation-cap" class="w-24 h-24 text-indigo-400/50"></i>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 z-20">
+                        <h3 class="text-xl font-bold mb-2">Young Adults & Students</h3>
+                        <p class="text-slate-300 text-sm">Navigating career pressures and academic stress while feeling isolated in new environments.</p>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent z-10"></div>
+                    <div class="h-80 bg-slate-800 flex items-center justify-center">
+                        <i data-lucide="user-x" class="w-24 h-24 text-purple-400/50"></i>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 z-20">
+                        <h3 class="text-xl font-bold mb-2">Introverts</h3>
+                        <p class="text-slate-300 text-sm">Building confidence in social interactions without fear of judgment and practicing communication.</p>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent z-10"></div>
+                    <div class="h-80 bg-slate-800 flex items-center justify-center">
+                        <i data-lucide="heart-handshake" class="w-24 h-24 text-pink-400/50"></i>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 z-20">
+                        <h3 class="text-xl font-bold mb-2">Senior Citizens</h3>
+                        <p class="text-slate-300 text-sm">Missing family connections when children live far away and seeking companionship.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-12 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <i data-lucide="heart" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="font-display font-bold text-xl">Companion.ai</span>
+            </div>
+            <div class="text-slate-500 text-sm">
+                Technology disconnected us. Now AI reconnects us emotionally.
+            </div>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="text-slate-400 hover:text-white transition">
+                    <i data-lucide="twitter" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-slate-400 hover:text-white transition">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-slate-400 hover:text-white transition">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-8 pt-8 border-t border-slate-800 text-center text-slate-600 text-sm">
+            <p>Project by Princee Sinha, Pratap Sahu, Adarshkumar Singh, Alisha Singh</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Global State
+        let currentMode = 'voice';
+        let currentVoice = 'female';
+        let callStartTime = null;
+        let callTimerInterval = null;
+        let messageCount = 0;
+        let moodShifts = 0;
+        let isMuted = false;
+        let isCallActive = false;
+
+        // Emotion Responses
+        const emotionResponses = {
+            happy: {
+                class: 'emotion-happy',
+                text: 'Happy',
+                responses: ["That's wonderful to hear! What's making you feel good today?", "I love hearing that! Tell me more about what's going well.", "Your positive energy is contagious! Let's celebrate this moment."]
+            },
+            sad: {
+                class: 'emotion-sad',
+                text: 'Sad',
+                responses: ["I'm here for you. Would you like to talk about what's bothering you?", "It's okay to feel this way. I'm listening without judgment.", "Take your time. I'm not going anywhere. Tell me what's on your heart."]
+            },
+            anxious: {
+                class: 'emotion-anxious',
+                text: 'Anxious',
+                responses: ["Let's take a deep breath together. I'm right here with you.", "Anxiety can be overwhelming. Would it help to talk through what's worrying you?", "You're safe here. Let's work through this feeling together, step by step."]
+            },
+            neutral: {
+                class: 'emotion-neutral',
+                text: 'Neutral',
+                responses: ["How has your day been so far?", "I'm here to chat about anything on your mind. What's been going on?", "Sometimes neutral is good. Want to talk about your interests?"]
+            }
+        };
+
+        // Demo Messages
+        const demoMessages = [
+            { text: "I've been feeling a bit lonely lately 😔", emotion: 'sad', sender: 'user' },
+            { text: "I understand. Loneliness can be really heavy. I'm here for you 💙", emotion: 'sad', sender: 'ai' },
+            { text: "It's just hard when everyone seems busy", emotion: 'sad', sender: 'user' },
+            { text: "That feeling of being alone even when surrounded by people is tough. But you're not alone right now - I'm here to listen.", emotion: 'sad', sender: 'ai' },
+            { text: "Actually, talking to you helps a bit", emotion: 'happy', sender: 'user' },
+            { text: "That makes me so glad to hear! 😊 I'm always here whenever you need someone.", emotion: 'happy', sender: 'ai' }
+        ];
+
+        // Functions
+        function scrollToDemo() {
+            document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => startVoiceCall(), 800);
+        }
+
+        function startVoiceCall() {
+            isCallActive = true;
+            callStartTime = Date.now();
+            document.getElementById('voice-visualizer').style.opacity = '1';
+            document.getElementById('voice-status').textContent = "Listening...";
+            startCallTimer();
+            
+            // Simulate conversation
+            setTimeout(() => {
+                if(isCallActive) simulateEmotionChange('neutral');
+            }, 2000);
+        }
+
+        function endCall() {
+            isCallActive = false;
+            document.getElementById('voice-visualizer').style.opacity = '0';
+            document.getElementById('voice-status').textContent = "Call ended. Tap Start Voice Call to reconnect.";
+            stopCallTimer();
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const btn = document.getElementById('mute-btn');
+            if(isMuted) {
+                btn.innerHTML = '<i data-lucide="mic-off" class="w-6 h-6 text-red-400"></i>';
+                document.getElementById('voice-visualizer').style.opacity = '0.3';
+            } else {
+                btn.innerHTML = '<i data-lucide="mic" class="w-6 h-6"></i>';
+                document.getElementById('voice-visualizer').style.opacity = '1';
+            }
+            lucide.createIcons();
+        }
+
+        function startCallTimer() {
+            callTimerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - callStartTime) / 1000);
+                const mins = Math.floor(elapsed / 60).toString().padStart(2, '0');
+                const secs = (elapsed % 60).toString().padStart(2, '0');
+                document.getElementById('call-timer').textContent = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function stopCallTimer() {
+            clearInterval(callTimerInterval);
+            document.getElementById('call-timer').textContent = '00:00';
+        }
+
+        function switchMode(mode) {
+            currentMode = mode;
+            const voiceInterface = document.getElementById('voice-interface');
+            const chatInterface = document.getElementById('chat-interface');
+            const voiceBtn = document.getElementById('mode-voice');
+            const chatBtn = document.getElementById('mode-chat');
+
+            if(mode === 'voice') {
+                voiceInterface.classList.remove('hidden');
+                chatInterface.classList.add('hidden');
+                voiceBtn.classList.add('bg-indigo-600', 'text-white');
+                voiceBtn.classList.remove('text-slate-400');
+                chatBtn.classList.remove('bg-indigo-600', 'text-white');
+                chatBtn.classList.add('text-slate-400');
+                if(!isCallActive) startVoiceCall();
+            } else {
+                voiceInterface.classList.add('hidden');
+                chatInterface.classList.remove('hidden');
+                chatBtn.classList.add('bg-indigo-600', 'text-white');
+                chatBtn.classList.remove('text-slate-400');
+                voiceBtn.classList.remove('bg-indigo-600', 'text-white');
+                voiceBtn.classList.add('text-slate-400');
+                stopCallTimer();
+            }
+        }
+
+        function switchToChat() {
+            switchMode('chat');
+            scrollToDemo();
+        }
+
+        function setVoice(gender) {
+            currentVoice = gender;
+            document.getElementById('voice-female').className = gender === 'female' ? 'voice-btn bg-indigo-600 text-white py-2 px-4 rounded-lg text-sm font-medium transition' : 'voice-btn bg-white/5 text-slate-300 py-2 px-4 rounded-lg text-sm font-medium transition hover:bg-white/10';
+            document.getElementById('voice-male').className = gender === 'male' ? 'voice-btn bg-indigo-600 text-white py-2 px-4 rounded-lg text-sm font-medium transition' : 'voice-btn bg-white/5 text-slate-300 py-2 px-4 rounded-lg text-sm font-medium transition hover:bg-white/10';
+            
+            // Update avatar/icon based on selection
+            const name = gender === 'female' ? 'Nora' : 'Noah';
+            document.querySelector('#voice-interface h3').textContent = name;
+        }
+
+        function simulateEmotionChange(emotion) {
+            const indicator = document.getElementById('emotion-indicator');
+            const data = emotionResponses[emotion];
+            
+            indicator.className = `${data.class} rounded-lg p-3 text-center font-semibold text-sm transition-all duration-500 text-white shadow-lg`;
+            indicator.textContent = data.text;
+            
+            if(currentMode === 'voice') {
+                document.getElementById('voice-status').textContent = data.responses[Math.floor(Math.random() * data.responses.length)];
+            }
+            
+            moodShifts++;
+            document.getElementById('mood-shifts').textContent = moodShifts;
+        }
+
+        function handleChatKeypress(e) {
+            if(e.key === 'Enter') sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if(!text) return;
+
+            // Add user message
+            addMessage(text, 'user');
+            input.value = '';
+            messageCount++;
+            document.getElementById('message-count').textContent = messageCount;
+
+            // Show typing indicator
+            document.getElementById('typing-indicator').classList.remove('hidden');
+
+            // Simulate AI response
+            setTimeout(() => {
+                document.getElementById('typing-indicator').classList.add('hidden');
+                
+                // Determine emotion based on keywords
+                let emotion = 'neutral';
+                if(text.toLowerCase().includes('happy') || text.toLowerCase().includes('good') || text.toLowerCase().includes('great')) emotion = 'happy';
+                else if(text.toLowerCase().includes('sad') || text.toLowerCase().includes('lonely') || text.toLowerCase().includes('depressed')) emotion = 'sad';
+                else if(text.toLowerCase().includes('anxious') || text.toLowerCase().includes('worried') || text.toLowerCase().includes('stress')) emotion = 'anxious';
+                
+                simulateEmotionChange(emotion);
+                
+                const response = emotionResponses[emotion].responses[Math.floor(Math.random() * emotionResponses[emotion].responses.length)];
+                addMessage(response, 'ai');
+            }, 1500);
+        }
+
+        function addMessage(text, sender) {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.className = 'flex items-start space-x-3 animate-fade-in';
+            
+            if(sender === 'user') {
+                div.innerHTML = `
+                    <div class="flex-1 flex justify-end">
+                        <div class="bg-indigo-600 rounded-2xl rounded-tr-none px-4 py-3 max-w-[80%]">
+                            <p class="text-sm text-white">${text}</p>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 bg-slate-700 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <i data-lucide="user" class="w-4 h-4 text-slate-300"></i>
+                    </div>
+                `;
+            } else {
+                div.innerHTML = `
+                    <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                        <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                    </div>
+                    <div class="bg-slate-800 rounded-2xl rounded-tl-none px-4 py-3 max-w-[80%]">
+                        <p class="text-sm text-slate-200">${text}</p>
+                    </div>
+                `;
+            }
+            
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+            lucide.createIcons();
+        }
+
+        // Simulate demo conversation on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if(currentMode === 'chat') {
+                    demoMessages.forEach((msg, index) => {
+                        setTimeout(() => {
+                            if(msg.sender === 'user') {
+                                addMessage(msg.text, 'user');
+                                simulateEmotionChange(msg.emotion);
+                            } else {
+                                document.getElementById('typing-indicator').classList.remove('hidden');
+                                setTimeout(() => {
+                                    document.getElementById('typing-indicator').classList.add('hidden');
+                                    addMessage(msg.text, 'ai');
+                                }, 1000);
+                            }
+                        }, index * 2000);
+                    });
+                }
+            }, 1000);
+        });
+
+        // Add animation styles dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fade-in {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in {
+                animation: fade-in 0.3s ease-out;
+            }
+            @keyframes blob {
+                0% { transform: translate(0px, 0px) scale(1); }
+                33% { transform: translate(30px, -50px) scale(1.1); }
+                66% { transform: translate(-20px, 20px) scale(0.9); }
+                100% { transform: translate(0px, 0px) scale(1); }
+            }
+            .animate-blob {
+                animation: blob 7s infinite;
+            }
+            .animation-delay-2000 {
+                animation-delay: 2s;
+            }
+            .animation-delay-4000 {
+                animation-delay: 4s;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
